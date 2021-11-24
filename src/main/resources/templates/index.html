@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FactUserData</title>
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <script th:src="@{/bootstrap.min.js}"></script>
+</head>
+<body>
+    <div class="container" th:class="container">
+        <div class="row justify-content-center mt-5 mb-3">
+            <div class="col-10">
+                <h1>Use Case I - FactUserData</h1>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <form action="#" th:action="@{/submit}" th:object="${formInput}" method="post">
+                    <div class="form-group row align-items-center my-3 text-end">
+                        <label class="col-md-2" th:for="plantIdInput">Plant ID</label>
+                        <div class="col-md-10">
+                            <input type="text" th:field="*{plantId}" class="form-control" th:id="plantIdInput" placeholder="PlantId" th:required="true">
+                        </div>
+                    </div>
+                    <div class="form-group row align-items-center my-3 text-end">
+                        <label class="col-md-2" th:for="startDateInput">Start and End Date</label>
+                        <div class="col-md-10">
+                            <div class="row align-items-center text-end">
+                                <div class="col-5">
+                                    <input type="date" th:field="*{startDate}" class="form-control" th:id="startDateInput" placeholder="StartDate" th:required="true">
+                                </div>
+                                <div class="col-2">
+                                    End Date
+                                </div>
+                                <div class="col-5">
+                                    <input type="date" th:field="*{endDate}" class="form-control" th:id="endDateInput" placeholder="EndDate" th:required="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row align-items-center my-3 text-end">
+                        <label class="col-md-2" th:for="productionIdInput">Production ID</label>
+                        <div class="col-md-10">
+                            <input type="text" th:field="*{productionID}" class="form-control" th:id="productionIdInput" placeholder="ProductionId (optional)">
+                        </div>
+                    </div>
+                    <div class="form-group row align-items-center my-3 text-end">
+                        <label class="col-md-2" th:for="userDataNameInput">User Data Name</label>
+                        <div class="col-md-10">
+                            <div class="row align-items-center">
+                                <div class="col-5">
+                                    <input type="text" th:field="*{userDataName}" class="form-control" th:id="userDataNameInput" placeholder="UserDataName (optional)">
+                                </div>
+                                <div class="col-2">
+                                    User Data
+                                </div>
+                                <div class="col-5">
+                                    <input type="text" th:field="*{userData}" class="form-control" th:id="userData" placeholder="UserData (optional)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end my-4">
+                        <div class="col-2 text-end">
+                            <button type="submit" class="btn btn-outline-dark">Execute</button>
+                        </div>
+                        <div class="col-2 text-end">
+                            <button type="reset" class="btn btn-outline-dark">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div th:if="${not #lists.isEmpty(queryResults.getQueryResults())}" class="row justify-content-center mt-5">
+            <div class="col-10">
+                <div class="row my-4">
+                    <div class="col-3">
+                        <div>
+                            <p>Execution Time: <span th:text="${queryResults.getExecutionTime()}"></span> seconds</p>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">DataName</th>
+                            <th scope="col">Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="result: ${queryResults.getQueryResults()}">
+                            <td th:text="${result.date}"></td>
+                            <td th:text="${result.dataName}"></td>
+                            <td th:text="${result.data}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+</html>
